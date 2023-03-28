@@ -16,13 +16,14 @@ const DeleteStyled = styled.div`
         outline: none;
         border: none;
         margin-right: 10px;
+        cursor: pointer;
     }
 `
 
-export default function Delete() {
+export default function Delete({BackSpace}) {
   return (
     <DeleteStyled>
-        <button><FiIcons.FiDelete/></button>
+        <button onClick={BackSpace}><FiIcons.FiDelete/></button>
     </DeleteStyled>
   )
 }
