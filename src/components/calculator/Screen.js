@@ -18,6 +18,9 @@ const ScreenStyled=styled.div`
         bottom: 10px;
         right: 10px;
     }
+    @media(max-width:400px){
+        margin-top: 10%;
+    }
 `
 
 export default function Screen({result,value}) {
