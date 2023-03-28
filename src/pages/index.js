@@ -14,46 +14,83 @@ const Container = styled.div`
   width: 18rem;
   padding: 10px 10px 10px 10px;
   border-radius: 10px;
+  @media(max-width:400px){
+    width: 100%;
+    height: 100%;
+  }
 `
 
 export default function HomePage() {
   const [value, setValue] = useState(0)
   const [result, setResult] = useState(0)
+  const [verefication, setVerification] = useState(true)
 
   const BackSpace = () => {
-    try {
-      setValue(value.substring(0, value.length - 1))
-    } catch (error) {
-      console.log('Realize alguma operação')
+    if (value.length == 1) {
+      setValue(0)
+    } else {
+      try {
+        setValue(value.substring(0, value.length - 1))
+      } catch (error) {
+        console.log('Realize alguma operação')
+      }
     }
   }
 
   const CalcResul = () => {
-    console.log('resultado');
-    setResult(eval(value))
+    try {
+      setResult(eval(value))
+    } catch (error) {
+      setResult("Operação Inválida")
+    }
   }
 
   const OperatorValues = (e) => {
     if (e == "C") {
       setValue(0)
-    } else if (value == 0) {
-      setValue(e)
-    }else if(e=="÷"){
-      setValue(value+'/')
-    }else if(e=="×"){
-      setValue(value+'*')
-    }
-    else {
-      console.log(value.length);
-      setValue(value + e)
-    }
-  }
+      if(result == "Operação Inválida"){
+        setResult(0)
+      }
+    } else if (value == '0') {
+      if (e == "÷" || e == "+" || e == "-" || e == "×" || e == "%") {
+        return
+      } else if (e == ".") {
+        setValue("0.")
+      } else {
+        setValue(e)
+      }
+    } else if (e == "÷" || e == "+" || e == "-" || e == "×" || e == "%" || e=="."){
+      if(verefication==true){
+        setVerification(false)
+        if (e == "÷") {
+          setValue(value + '/')
+        } else if (e == "×") {
+          setValue(value + '*')
+        }else if(e=="%"){
+          try {
+            setValue(eval(value)/100)
+            setResult(eval(value)/100)
+            setVerification(true)
+          } catch (error) {
+            setResult("Operação inválida")
+          }
+        }
+        else{
+          setValue(value+e)
+        }
+      }
+    } else {
+        setValue(value + e)
+        setVerification(true)
+      }
 
-  return (
-    <Container>
-      <Screen value={value} result={result} />
-      <Delete BackSpace={BackSpace} />
-      <Buttons OperatorValues={OperatorValues} CalcResul={CalcResul} />
-    </Container>
-  )
-}
+    }
+
+    return (
+      <Container>
+        <Screen value={value} result={result} />
+        <Delete BackSpace={BackSpace} />
+        <Buttons OperatorValues={OperatorValues} CalcResul={CalcResul} />
+      </Container>
+    )
+  }
