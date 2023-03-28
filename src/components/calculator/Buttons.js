@@ -18,6 +18,7 @@ const ButtonStyled = styled.div`
         border-radius: 50%;
         font-size:1.3rem;
         transition: all .1s;
+        cursor: pointer;
     }
     button:active{
         background-color: #272727;
@@ -40,18 +41,18 @@ const ButtonStyled = styled.div`
     }
 `
 
-export default function Buttons() {
+export default function Buttons({OperatorValues,CalcResul}) {
     const buttons = ["C","(",")","÷","7","8","9","×","4","5","6","-","1","2","3","+","0",".","%"]
   return (
     <ButtonStyled>
         {
             buttons.map((value,i)=>{
                 return(
-                    <button key={i} value={value} >{value}</button>
+                    <button onClick={(e)=>OperatorValues(e.target.value)} key={i} value={value} >{value}</button>
                 )
             })
         }
-        <button value={"="}>=</button>
+        <button onClick={CalcResul}>=</button>
     </ButtonStyled>
   )
 }
