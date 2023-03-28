@@ -39,6 +39,12 @@ const ButtonStyled = styled.div`
     button:last-child:active{
         background-color: #37A710;
     }
+    @media(max-width:400px){
+        height: 60%;
+        button{
+            width: 20%;
+        }
+    }
 `
 
 export default function Buttons({OperatorValues,CalcResul}) {
