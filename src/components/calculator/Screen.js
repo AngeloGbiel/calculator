@@ -20,11 +20,11 @@ const ScreenStyled=styled.div`
     }
 `
 
-export default function Screen() {
+export default function Screen({result,value}) {
   return (
     <ScreenStyled>
-        <span className='operar'>10+5</span>
-        <span className='resul'>15</span>
+        <span className='operar'>{value}</span>
+        <span className='resul'>{result}</span>
     </ScreenStyled>
   )
 }
