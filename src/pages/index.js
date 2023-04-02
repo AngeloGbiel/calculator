@@ -31,6 +31,7 @@ export default function HomePage() {
     } else {
       try {
         setValue(value.substring(0, value.length - 1))
+        setVerification(true)
       } catch (error) {
         console.log('Realize alguma operação')
       }
